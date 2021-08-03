@@ -9,21 +9,27 @@
 /* Begin PBXBuildFile section */
 		7D22D28A26B9B92800E0540B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22D28926B9B92800E0540B /* AppDelegate.swift */; };
 		7D22D28C26B9B92800E0540B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22D28B26B9B92800E0540B /* SceneDelegate.swift */; };
-		7D22D28E26B9B92800E0540B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22D28D26B9B92800E0540B /* ViewController.swift */; };
+		7D22D28E26B9B92800E0540B /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22D28D26B9B92800E0540B /* GalleryViewController.swift */; };
 		7D22D29126B9B92800E0540B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D22D28F26B9B92800E0540B /* Main.storyboard */; };
 		7D22D29326B9B92B00E0540B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D22D29226B9B92B00E0540B /* Assets.xcassets */; };
 		7D22D29626B9B92B00E0540B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D22D29426B9B92B00E0540B /* LaunchScreen.storyboard */; };
+		7D22D29F26B9D07B00E0540B /* GalleryViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22D29E26B9D07B00E0540B /* GalleryViewLayout.swift */; };
+		7D22D2A126B9D8C200E0540B /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22D2A026B9D8C200E0540B /* GalleryCollectionViewCell.swift */; };
+		7D22D2A326B9EC2C00E0540B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22D2A226B9EC2C00E0540B /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7D22D28626B9B92800E0540B /* iGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D22D28926B9B92800E0540B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D22D28B26B9B92800E0540B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7D22D28D26B9B92800E0540B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7D22D28D26B9B92800E0540B /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		7D22D29026B9B92800E0540B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7D22D29226B9B92B00E0540B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D22D29526B9B92B00E0540B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D22D29726B9B92B00E0540B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D22D29E26B9D07B00E0540B /* GalleryViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewLayout.swift; sourceTree = "<group>"; };
+		7D22D2A026B9D8C200E0540B /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		7D22D2A226B9EC2C00E0540B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +64,24 @@
 			children = (
 				7D22D28926B9B92800E0540B /* AppDelegate.swift */,
 				7D22D28B26B9B92800E0540B /* SceneDelegate.swift */,
-				7D22D28D26B9B92800E0540B /* ViewController.swift */,
+				7D22D2A226B9EC2C00E0540B /* Constants.swift */,
+				7D22D29D26B9D04B00E0540B /* Gallery */,
 				7D22D28F26B9B92800E0540B /* Main.storyboard */,
 				7D22D29226B9B92B00E0540B /* Assets.xcassets */,
 				7D22D29426B9B92B00E0540B /* LaunchScreen.storyboard */,
 				7D22D29726B9B92B00E0540B /* Info.plist */,
 			);
 			path = iGallery;
+			sourceTree = "<group>";
+		};
+		7D22D29D26B9D04B00E0540B /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				7D22D28D26B9B92800E0540B /* GalleryViewController.swift */,
+				7D22D29E26B9D07B00E0540B /* GalleryViewLayout.swift */,
+				7D22D2A026B9D8C200E0540B /* GalleryCollectionViewCell.swift */,
+			);
+			path = Gallery;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +154,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D22D28E26B9B92800E0540B /* ViewController.swift in Sources */,
+				7D22D28E26B9B92800E0540B /* GalleryViewController.swift in Sources */,
+				7D22D2A126B9D8C200E0540B /* GalleryCollectionViewCell.swift in Sources */,
 				7D22D28A26B9B92800E0540B /* AppDelegate.swift in Sources */,
 				7D22D28C26B9B92800E0540B /* SceneDelegate.swift in Sources */,
+				7D22D29F26B9D07B00E0540B /* GalleryViewLayout.swift in Sources */,
+				7D22D2A326B9EC2C00E0540B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,14 +309,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 946NQ7ZBS2;
 				INFOPLIST_FILE = iGallery/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jemzza.iGallery;
+				PRODUCT_BUNDLE_IDENTIFIER = jemzza.MyTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -308,14 +329,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 946NQ7ZBS2;
 				INFOPLIST_FILE = iGallery/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jemzza.iGallery;
+				PRODUCT_BUNDLE_IDENTIFIER = jemzza.MyTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
