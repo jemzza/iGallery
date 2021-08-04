@@ -38,11 +38,17 @@ class GalleryViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
+        setupTitle()
+        setupBarButtonItem()
+    }
+    
+    private func setupTitle() {
         title = "Mobile Up Gallery"
-        
+    }
+    
+    private func setupBarButtonItem() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выход/Вход", style: .plain, target: self, action: #selector(loginOrOutTapped))
 //        navigationItem.rightBarButtonItem?.tintColor = Constants.Colors.titles
-    
     }
     
     @objc
@@ -65,7 +71,8 @@ extension GalleryViewController: UICollectionViewDataSourcePrefetching {
 extension GalleryViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let detailVC = DetailViewController()
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
 }
