@@ -50,10 +50,10 @@ class CarouselViewCell: UICollectionViewCell, ViewCellProtocol {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         let newImageSize = CGSize(width: bounds.height, height: bounds.height)
         imageView.frame = CGRect(origin: .zero, size: newImageSize)
-
+        
     }
 }
 

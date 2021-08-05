@@ -10,9 +10,10 @@ import UIKit
 class GalleryViewController: UIViewController {
     
     
-    //MARK: - Public Methods
-    let reuseIdentifier = "Cell"
+    //MARK: - Private Properties
+    private let reuseIdentifier = "Cell"
     
+    //MARK: - Public Methods
     override func loadView() {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: GalleryViewLayout())
@@ -37,6 +38,7 @@ class GalleryViewController: UIViewController {
         setupNavigationBar()
     }
     
+    //MARK: - Private Methods
     private func setupNavigationBar() {
         setupTitle()
         setupBarButtonItem()

@@ -92,12 +92,12 @@ extension DetailViewController: UICollectionViewDataSource {
 
 // MARK: - Delegate
 extension DetailViewController: PhotoCellDelegate {
-
+    
     func photoCellDidTap(_ cell: ViewCellProtocol) {
         toggleNavigationBar()
     }
     
- }
+}
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension DetailViewController: UICollectionViewDelegateFlowLayout {
@@ -110,7 +110,7 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: collectionView.bounds.height,
                           height: collectionView.bounds.height)
         }
-        return CGSize(width: collectionView.bounds.width,
+        return CGSize(width: collectionView.bounds.width - Static.spacingPhoto,
                       height: collectionView.bounds.height)
     }
 }
@@ -164,41 +164,41 @@ private extension DetailViewController {
     }
     
     func setupCollectionView() {
-             let layout = UICollectionViewFlowLayout()
-             layout.scrollDirection = .horizontal
-             layout.minimumLineSpacing = Static.spacingPhoto
-             layout.sectionInset = UIEdgeInsets(
-                 top: 0.0,
-                 left: Static.spacingPhoto / 2,
-                 bottom: 0.0,
-                 right: Static.spacingPhoto / 2
-             )
-
-             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-
-             collectionView.register(
-                 PhotoViewCell.self,
-                 forCellWithReuseIdentifier: PhotoViewCell.reuseIdentifier
-             )
-
-             collectionView.contentInsetAdjustmentBehavior = .never
-             collectionView.allowsMultipleSelection = true
-             collectionView.isPagingEnabled = true
-             collectionView.alwaysBounceVertical = true
-             collectionView.dataSource = self
-             collectionView.delegate = self
-
-             view.addSubview(collectionView)
-
-             collectionView.translatesAutoresizingMaskIntoConstraints = false
-
-             NSLayoutConstraint.activate([
-                 collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-                 collectionView.bottomAnchor.constraint(equalTo: carouselCollectionView.topAnchor, constant: -10),
-                 collectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -Static.spacingPhoto / 2),
-                 collectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Static.spacingPhoto / 2),
-                 ])
-         }
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = Static.spacingPhoto
+        layout.sectionInset = UIEdgeInsets(
+            top: 0.0,
+            left: Static.spacingPhoto / 2,
+            bottom: 0.0,
+            right: Static.spacingPhoto / 2
+        )
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        collectionView.register(
+            PhotoViewCell.self,
+            forCellWithReuseIdentifier: PhotoViewCell.reuseIdentifier
+        )
+        
+        collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.allowsMultipleSelection = true
+        collectionView.isPagingEnabled = true
+        collectionView.alwaysBounceHorizontal = true
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        view.addSubview(collectionView)
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: carouselCollectionView.topAnchor, constant: -10),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -Static.spacingPhoto / 2),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Static.spacingPhoto / 2),
+        ])
+    }
     
     func toggleNavigationBar() {
         navigationBarHidden.toggle()
