@@ -7,15 +7,15 @@
 
 import UIKit
 
-protocol DetailViewCellDelegate: AnyObject {
-    func photoViewCellDidTap(_ cell: DetailViewCell)
-}
+//protocol CarouselViewCellDelegate: AnyObject {
+//    func CarouselViewCellDidTap(_ cell: CarouselViewCell)
+//}
 
-class DetailViewCell: UICollectionViewCell {
+class CarouselViewCell: UICollectionViewCell, ViewCellProtocol {    
     
     // MARK: - Public Properties
-    weak var delegate: DetailViewCellDelegate?
-    static let reuseIdentifier = String(describing: DetailViewCell.self)
+    weak var delegate: PhotoCellDelegate?
+    static let reuseIdentifier = String(describing: CarouselViewCell.self)
     
     // MARK: - Private Properties
     private let imageView = UIImageView()
@@ -57,7 +57,7 @@ class DetailViewCell: UICollectionViewCell {
     }
 }
 
-private extension DetailViewCell {
+private extension CarouselViewCell {
     
     // MARK: - Private Methods
     func setupImageView() {
@@ -68,6 +68,6 @@ private extension DetailViewCell {
     }
     
     @objc func handleSingleTap() {
-        delegate?.photoViewCellDidTap(self)
+        delegate?.photoCellDidTap(self)
     }
 }

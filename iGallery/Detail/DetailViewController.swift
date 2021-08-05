@@ -9,13 +9,14 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    
     // MARK: - Public Properties
     override var prefersStatusBarHidden: Bool {
         return navigationBarHidden
     }
     
     // MARK: - Private Properties
-    
+    private var carouselCollectionView: UICollectionView!
     private var navigationBarHidden = false
     
     // MARK: - Public Methods
@@ -24,6 +25,7 @@ class DetailViewController: UIViewController {
         
         view.backgroundColor = .white
         setupNavigationBar()
+        setupСarouselCollectionView()
         setupCollectionView()
     }
     
@@ -69,8 +71,16 @@ extension DetailViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailViewCell.reuseIdentifier, for: indexPath) as? DetailViewCell else {
-            assert(false, "Cell for gallery view must be of type PhotoViewCell")
+        
+        let identifier: String
+        if collectionView == carouselCollectionView {
+            identifier = CarouselViewCell.reuseIdentifier
+        } else {
+            identifier = PhotoViewCell.reuseIdentifier
+        }
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? ViewCellProtocol else {
+            assert(false, "Cell for gallery view must be of type PhotoViewCell or CarouselViewCell")
             return UICollectionViewCell()
         }
         cell.configure(with: UIImage(imageLiteralResourceName: indexPath.item % 2 == 0 ? "ref011" : "ref012"))
@@ -80,14 +90,14 @@ extension DetailViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - DetailViewController
-extension DetailViewController: DetailViewCellDelegate {
-    
-    func photoViewCellDidTap(_ cell: DetailViewCell) {
-        print("User tapped!")
+// MARK: - Delegate
+extension DetailViewController: PhotoCellDelegate {
+
+    func photoCellDidTap(_ cell: ViewCellProtocol) {
+        toggleNavigationBar()
     }
     
-}
+ }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension DetailViewController: UICollectionViewDelegateFlowLayout {
@@ -96,7 +106,11 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: collectionView.bounds.height,
+        if collectionView == carouselCollectionView {
+            return CGSize(width: collectionView.bounds.height,
+                          height: collectionView.bounds.height)
+        }
+        return CGSize(width: collectionView.bounds.width,
                       height: collectionView.bounds.height)
     }
 }
@@ -106,47 +120,85 @@ private extension DetailViewController {
     // MARK: - Private Nested
     
     struct Static {
-        static let spacing: CGFloat = 2.0
+        static let spacingCarousel: CGFloat = 2.0
+        static let spacingPhoto: CGFloat = 10.0
+        
     }
     
     // MARK: - Private Methods
     
-    func setupCollectionView() {
+    func setupСarouselCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = Static.spacing
+        layout.minimumLineSpacing = Static.spacingCarousel
         layout.sectionInset = UIEdgeInsets(
             top: 0.0,
-            left: Static.spacing / 2,
+            left: Static.spacingCarousel / 2,
             bottom: 0.0,
-            right: Static.spacing / 2
+            right: Static.spacingCarousel / 2
         )
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        carouselCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        collectionView.backgroundColor = .white
+        carouselCollectionView.backgroundColor = .white
         
-        collectionView.register(
-            DetailViewCell.self,
-            forCellWithReuseIdentifier: DetailViewCell.reuseIdentifier
+        carouselCollectionView.register(
+            CarouselViewCell.self,
+            forCellWithReuseIdentifier: CarouselViewCell.reuseIdentifier
         )
         
-        collectionView.contentInsetAdjustmentBehavior = .never
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        carouselCollectionView.contentInsetAdjustmentBehavior = .never
+        carouselCollectionView.dataSource = self
+        carouselCollectionView.delegate = self
         
-        view.addSubview(collectionView)
+        view.addSubview(carouselCollectionView)
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        carouselCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-//            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -Static.spacing / 2),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Static.spacing / 2),
+            carouselCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
+            carouselCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            carouselCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -Static.spacingCarousel / 2),
+            carouselCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Static.spacingCarousel / 2),
         ])
     }
+    
+    func setupCollectionView() {
+             let layout = UICollectionViewFlowLayout()
+             layout.scrollDirection = .horizontal
+             layout.minimumLineSpacing = Static.spacingPhoto
+             layout.sectionInset = UIEdgeInsets(
+                 top: 0.0,
+                 left: Static.spacingPhoto / 2,
+                 bottom: 0.0,
+                 right: Static.spacingPhoto / 2
+             )
+
+             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+
+             collectionView.register(
+                 PhotoViewCell.self,
+                 forCellWithReuseIdentifier: PhotoViewCell.reuseIdentifier
+             )
+
+             collectionView.contentInsetAdjustmentBehavior = .never
+             collectionView.allowsMultipleSelection = true
+             collectionView.isPagingEnabled = true
+             collectionView.alwaysBounceVertical = true
+             collectionView.dataSource = self
+             collectionView.delegate = self
+
+             view.addSubview(collectionView)
+
+             collectionView.translatesAutoresizingMaskIntoConstraints = false
+
+             NSLayoutConstraint.activate([
+                 collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+                 collectionView.bottomAnchor.constraint(equalTo: carouselCollectionView.topAnchor, constant: -10),
+                 collectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -Static.spacingPhoto / 2),
+                 collectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Static.spacingPhoto / 2),
+                 ])
+         }
     
     func toggleNavigationBar() {
         navigationBarHidden.toggle()
