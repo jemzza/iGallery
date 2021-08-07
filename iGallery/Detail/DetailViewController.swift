@@ -37,7 +37,7 @@ class DetailViewController: UIViewController {
     }
     
     private func setupBarButtonItems() {
-        setupBackButton()
+//        setupBackButton()
         setupShareButton()
     }
     

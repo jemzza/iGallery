@@ -9,13 +9,17 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    //MARK: - Public properties
     var window: UIWindow?
+    
+    //MARK: - Private properties
+    private let photoService = PhotoServiceRealization()
 
-
+    //MARK: - Pulic Methods
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let viewController = GalleryViewController()
+        let viewController = GalleryViewController(photoService: photoService)
         let navigationController = UINavigationController(rootViewController: viewController)
         self.window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navigationController

@@ -20,6 +20,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     //MARK: - Private Properties
     private let imageView = UIImageView()
     private let activityIndicator = UIActivityIndicatorView()
+    private var interactor: PhotoInteractor?
     
     //MARK: - init
     override init(frame: CGRect) {
@@ -35,8 +36,14 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Public Methods
-    func configure(for image: UIImage) {
-        imageView.image = image
+    func configure(for interactor: PhotoInteractor) {
+        imageView.reset()
+        interactor.downloadPhoto { [weak self] image, error in
+            self?.imageView.image = image
+            self?.activityIndicator.stopAnimating()
+        }
+        self.interactor?.cancelDownloading()
+        self.interactor = interactor
     }
 }
 
