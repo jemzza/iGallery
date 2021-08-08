@@ -24,7 +24,7 @@ class PhotoServiceRealization: PhotoService {
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ru_RU")
-        dateFormatter.dateFormat = "d MMM 'в' HH:mm"
+        dateFormatter.dateFormat = "d MMMM Y"
         return dateFormatter
     }()
 

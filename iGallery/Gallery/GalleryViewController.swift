@@ -53,13 +53,15 @@ extension GalleryViewController: UICollectionViewDataSourcePrefetching {
 extension GalleryViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = DetailViewController()
+        
+        let detailVC = DetailViewController(forIndex: indexPath.row, photoService: photoService)
+        detailVC.delegate = self
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
 }
 
-// MARK: - UICollectionViewDataSource
+//MARK: - UICollectionViewDataSource
 extension GalleryViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -77,6 +79,21 @@ extension GalleryViewController: UICollectionViewDataSource {
         cell.configure(for: photoInteractor)
         return cell
     }
+}
+
+//MARK: - DetailViewControllerDelegate
+
+extension GalleryViewController: DetailViewControllerDelegate {
+    
+    func detailViewController(_ controller: DetailViewController, didChangeOverlookedIndex index: Int) {
+        let indexPath = IndexPath(item: index, section: 0)
+        collectionView.scrollToItem(
+            at: indexPath,
+            at: .centeredVertically,
+            animated: false
+        )
+    }
+    
 }
 
 private extension GalleryViewController {

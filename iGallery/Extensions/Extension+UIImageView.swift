@@ -10,7 +10,8 @@ import UIKit
 extension UIImageView {
     
     func reset() {
-        image = UIImage(named: "placeholder")
+//        image = UIImage(named: "placeholder")
+        image = UIImage(imageLiteralResourceName: "placeholder")
     }
     
 }

@@ -18,7 +18,6 @@ class GalleryViewLayout: UICollectionViewLayout {
     private var contentBounds = CGRect.zero
     private var cachedAttributes = [UICollectionViewLayoutAttributes]()
     
-    
     //MARK: - Public Methods
     override func prepare() {
         super.prepare()
@@ -96,6 +95,8 @@ class GalleryViewLayout: UICollectionViewLayout {
 }
 
 private extension GalleryViewLayout {
+    
+    //MARK: - Private Nested
     struct Constants {
         static let numberOfColumns: Int = 2
         static let cellPadding: CGFloat = 1.0

@@ -7,19 +7,40 @@
 
 import UIKit
 
+protocol DetailViewControllerDelegate: AnyObject {
+    func detailViewController(_ controller: DetailViewController, didChangeOverlookedIndex: Int)
+}
+
 class DetailViewController: UIViewController {
     
-    
-    // MARK: - Public Properties
+    //MARK: - Public Properties
     override var prefersStatusBarHidden: Bool {
         return navigationBarHidden
     }
     
-    // MARK: - Private Properties
+    weak var delegate: DetailViewControllerDelegate?
+    
+    //MARK: - Private Properties
+    private var collectionView: UICollectionView!
     private var carouselCollectionView: UICollectionView!
     private var navigationBarHidden = false
+    private let photoService: PhotoService
+    private(set) var  overlookedIndex: Int
     
-    // MARK: - Public Methods
+    //MARK: - init
+    init(forIndex overlookedIndex: Int, photoService: PhotoService ) {
+        self.overlookedIndex = overlookedIndex
+        self.photoService = photoService
+        super.init(nibName: nil, bundle: nil)
+        let date = photoService.photoInteractor(forPhotoWithIndex: overlookedIndex)?.date
+        title = date
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Public Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,15 +50,23 @@ class DetailViewController: UIViewController {
         setupCollectionView()
     }
     
-    // MARK: - Private Methods
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        print("KEKEKE")
+        //TODO: colllecions
+        let indexPath = IndexPath(item: overlookedIndex, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+        carouselCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+    }
+    
+    //MARK: - Private Methods
     private func setupNavigationBar() {
-        title = "5 ноября 2019"
         setupBarButtonItems()
         
     }
     
     private func setupBarButtonItems() {
-//        setupBackButton()
+        //        setupBackButton()
         setupShareButton()
     }
     
@@ -63,11 +92,11 @@ class DetailViewController: UIViewController {
     }
 }
 
-// MARK: - UICollectionViewDataSource
+//MARK: - UICollectionViewDataSource
 extension DetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return photoService.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -79,18 +108,24 @@ extension DetailViewController: UICollectionViewDataSource {
             identifier = PhotoViewCell.reuseIdentifier
         }
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? ViewCellProtocol else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? ViewCellProtocol,
+              let photoInteractor = photoService.photoInteractor(forPhotoWithIndex: indexPath.row) else {
             assert(false, "Cell for gallery view must be of type PhotoViewCell or CarouselViewCell")
             return UICollectionViewCell()
         }
-        cell.configure(with: UIImage(imageLiteralResourceName: indexPath.item % 2 == 0 ? "ref011" : "ref012"))
+        
+        if collectionView != carouselCollectionView {
+            title = photoInteractor.date
+        }
+        
+        cell.configure(with: photoInteractor)
         cell.delegate = self
         
         return cell
     }
 }
 
-// MARK: - Delegate
+//MARK: - Delegate
 extension DetailViewController: PhotoCellDelegate {
     
     func photoCellDidTap(_ cell: ViewCellProtocol) {
@@ -117,7 +152,7 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
 
 private extension DetailViewController {
     
-    // MARK: - Private Nested
+    //MARK: - Private Nested
     
     struct Static {
         static let spacingCarousel: CGFloat = 2.0
@@ -125,7 +160,7 @@ private extension DetailViewController {
         
     }
     
-    // MARK: - Private Methods
+    //MARK: - Private Methods
     
     func setupСarouselCollectionView() {
         let layout = UICollectionViewFlowLayout()
@@ -138,29 +173,32 @@ private extension DetailViewController {
             right: Static.spacingCarousel / 2
         )
         
-        carouselCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        carouselCollectionView.backgroundColor = .white
+        collectionView.backgroundColor = .white
         
-        carouselCollectionView.register(
+        collectionView.register(
             CarouselViewCell.self,
             forCellWithReuseIdentifier: CarouselViewCell.reuseIdentifier
         )
         
-        carouselCollectionView.contentInsetAdjustmentBehavior = .never
-        carouselCollectionView.dataSource = self
-        carouselCollectionView.delegate = self
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
-        view.addSubview(carouselCollectionView)
+        view.addSubview(collectionView)
         
-        carouselCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            carouselCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
-            carouselCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            carouselCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -Static.spacingCarousel / 2),
-            carouselCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Static.spacingCarousel / 2),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -Static.spacingCarousel / 2),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Static.spacingCarousel / 2),
         ])
+        
+        self.carouselCollectionView = collectionView
     }
     
     func setupCollectionView() {
@@ -181,6 +219,8 @@ private extension DetailViewController {
             forCellWithReuseIdentifier: PhotoViewCell.reuseIdentifier
         )
         
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .none
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.allowsMultipleSelection = true
         collectionView.isPagingEnabled = true
@@ -198,6 +238,8 @@ private extension DetailViewController {
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -Static.spacingPhoto / 2),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Static.spacingPhoto / 2),
         ])
+        
+        self.collectionView = collectionView
     }
     
     func toggleNavigationBar() {
@@ -206,4 +248,15 @@ private extension DetailViewController {
         navigationController?.setNavigationBarHidden(navigationBarHidden, animated: false)
     }
     
+}
+
+
+extension DetailViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        overlookedIndex = Int(scrollView.contentOffset.x / scrollView.bounds.width)
+        delegate?.detailViewController(self, didChangeOverlookedIndex: overlookedIndex)
+        carouselCollectionView.scrollToItem(at: IndexPath(item: overlookedIndex, section: 0), at: .centeredHorizontally, animated: true)
+        print("scrollViewDidEndDecelerating")
+    }
 }

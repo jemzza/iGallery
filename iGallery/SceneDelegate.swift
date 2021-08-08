@@ -21,17 +21,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let viewController = GalleryViewController(photoService: photoService)
         let navigationController = UINavigationController(rootViewController: viewController)
+        
         self.window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
         
         let attrs = [
             NSAttributedString.Key.foregroundColor: Constants.Colors.titles,
             NSAttributedString.Key.font: UIFont(name: Constants.Font.main, size: Constants.Font.Size.small)!
         ]
+                navigationController.navigationBar.titleTextAttributes = attrs
+//                navigationController.navigationBar.barStyle = .blackTranslucent
+//                navigationController.navigationBar.barTintColor = .white
+        
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+        
 
-        navigationController.navigationBar.titleTextAttributes = attrs
-        navigationController.navigationBar.barTintColor = .white
+
     }
 
 }
