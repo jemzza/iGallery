@@ -26,13 +26,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let attrs = [
             NSAttributedString.Key.foregroundColor: Constants.Colors.titles,
-            NSAttributedString.Key.font: UIFont(name: Constants.Font.main, size: Constants.Font.Size.small)!
+            NSAttributedString.Key.font: UIFont(name: Constants.Font.medium, size: Constants.Font.Size.small)!
         ]
                 navigationController.navigationBar.titleTextAttributes = attrs
 //                navigationController.navigationBar.barStyle = .blackTranslucent
 //                navigationController.navigationBar.barTintColor = .white
         
-        window?.rootViewController = navigationController
+        let auth = AuthViewController()
+        window?.rootViewController = auth
         window?.makeKeyAndVisible()
         
 

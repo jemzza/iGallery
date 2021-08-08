@@ -26,6 +26,8 @@
 		7D8683A026BEB365008A8DF9 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D86839F26BEB365008A8DF9 /* Photo.swift */; };
 		7D8683A226BEB390008A8DF9 /* PhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8683A126BEB390008A8DF9 /* PhotoSize.swift */; };
 		7D8683A426BEB62B008A8DF9 /* PhotoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8683A326BEB62B008A8DF9 /* PhotoInteractor.swift */; };
+		7D8683A726C07121008A8DF9 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8683A626C07121008A8DF9 /* AuthView.swift */; };
+		7D8683A926C07130008A8DF9 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8683A826C07130008A8DF9 /* AuthViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		7D86839F26BEB365008A8DF9 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		7D8683A126BEB390008A8DF9 /* PhotoSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSize.swift; sourceTree = "<group>"; };
 		7D8683A326BEB62B008A8DF9 /* PhotoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInteractor.swift; sourceTree = "<group>"; };
+		7D8683A626C07121008A8DF9 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		7D8683A826C07130008A8DF9 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,7 @@
 				7D22D28B26B9B92800E0540B /* SceneDelegate.swift */,
 				7D86839C26BE9814008A8DF9 /* Models */,
 				7D22D2C826BDBE7C00E0540B /* Photo Service */,
+				7D8683A526C070D2008A8DF9 /* Authorization */,
 				7D22D2A426B9F3ED00E0540B /* Detail */,
 				7D22D29D26B9D04B00E0540B /* Gallery */,
 				7D22D2BE26BC738C00E0540B /* Extensions */,
@@ -152,6 +157,15 @@
 				7D8683A126BEB390008A8DF9 /* PhotoSize.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		7D8683A526C070D2008A8DF9 /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				7D8683A626C07121008A8DF9 /* AuthView.swift */,
+				7D8683A826C07130008A8DF9 /* AuthViewController.swift */,
+			);
+			path = Authorization;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +245,7 @@
 				7D22D28A26B9B92800E0540B /* AppDelegate.swift in Sources */,
 				7D22D2CA26BDBEA200E0540B /* PhotoService.swift in Sources */,
 				7D8683A426BEB62B008A8DF9 /* PhotoInteractor.swift in Sources */,
+				7D8683A726C07121008A8DF9 /* AuthView.swift in Sources */,
 				7D22D28C26B9B92800E0540B /* SceneDelegate.swift in Sources */,
 				7D22D29F26B9D07B00E0540B /* GalleryViewLayout.swift in Sources */,
 				7D22D2AA26BAFA9100E0540B /* CarouselViewCell.swift in Sources */,
@@ -238,6 +253,7 @@
 				7D22D2A326B9EC2C00E0540B /* Constants.swift in Sources */,
 				7D22D2BD26BC523E00E0540B /* ViewCellProtocol.swift in Sources */,
 				7D8683A226BEB390008A8DF9 /* PhotoSize.swift in Sources */,
+				7D8683A926C07130008A8DF9 /* AuthViewController.swift in Sources */,
 				7D22D2C226BC778F00E0540B /* Extension+UIImageView.swift in Sources */,
 				7D22D2A626B9F41E00E0540B /* DetailViewController.swift in Sources */,
 			);

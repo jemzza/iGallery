@@ -256,7 +256,8 @@ extension DetailViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         overlookedIndex = Int(scrollView.contentOffset.x / scrollView.bounds.width)
         delegate?.detailViewController(self, didChangeOverlookedIndex: overlookedIndex)
-        carouselCollectionView.scrollToItem(at: IndexPath(item: overlookedIndex, section: 0), at: .centeredHorizontally, animated: true)
+        
+            self.carouselCollectionView.scrollToItem(at: IndexPath(item: self.overlookedIndex, section: 0), at: .centeredHorizontally, animated: true)
         print("scrollViewDidEndDecelerating")
     }
 }
