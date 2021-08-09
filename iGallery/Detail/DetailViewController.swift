@@ -52,8 +52,6 @@ class DetailViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print("KEKEKE")
-        //TODO: colllecions
         let indexPath = IndexPath(item: overlookedIndex, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
         carouselCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)

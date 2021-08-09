@@ -9,8 +9,8 @@ import UIKit
 
 extension UIAlertController {
     
-    static func standard(error: Error) -> UIAlertController {
-        let alertController = UIAlertController(title: "Error happened", message: error.localizedDescription, preferredStyle: .alert)
+    static func standard(error: Error?) -> UIAlertController {
+        let alertController = UIAlertController(title: "Error happened", message: error?.localizedDescription ?? "Unknown error for app", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Ok", style: .default) { [weak alertController] _ in
             alertController?.dismiss(animated: true, completion: nil)
