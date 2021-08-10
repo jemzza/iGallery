@@ -51,7 +51,7 @@ class PhotoViewCell: UICollectionViewCell, ViewCellProtocol {
         setupScrollView()
         setupImageView()
         imageView.reset()
-                
+        
         _ = singleTapRecoginzer
         _ = doubleTapRecoginzer
     }
@@ -66,22 +66,19 @@ class PhotoViewCell: UICollectionViewCell, ViewCellProtocol {
         scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
         
         interactor.downloadPhoto { [weak self] image, error in
-            self?.imageView.image = image
-            self?.activityIndicator.stopAnimating()
-//            self?.setNeedsLayout()
-//            self?.layoutIfNeeded()
-            //            guard let self = self else { return }
-            //            UIView.transition(
-            //                with: self.imageView,
-            //                duration: 0.2,
-            //                options: [.transitionCrossDissolve],
-            //                animations: {
-            //                    self.imageView.image = image
-            //                    self.setNeedsLayout()
-            //                    self.layoutIfNeeded()
-            //            },
-            //                completion: nil
-            //            )
+            guard let self = self else { return }
+            UIView.transition(
+                with: self.imageView,
+                duration: 0.2,
+                options: [.transitionCrossDissolve],
+                animations: {
+                    self.imageView.image = image
+                    self.activityIndicator.stopAnimating()
+                    self.setNeedsLayout()
+                    self.layoutIfNeeded()
+                },
+                completion: nil
+            )
         }
         
         
@@ -115,6 +112,9 @@ class PhotoViewCell: UICollectionViewCell, ViewCellProtocol {
         updateInsets()
     }
     
+    func getImage() -> UIImage? {
+        return imageView.image
+    }
 }
 
 //MARK: - UIGestureRecognizerDelegate

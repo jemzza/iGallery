@@ -45,7 +45,8 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        setupNavigationBar()
+        
+        setupBarButtonItems()
         setupСarouselCollectionView()
         setupCollectionView()
     }
@@ -55,38 +56,6 @@ class DetailViewController: UIViewController {
         let indexPath = IndexPath(item: overlookedIndex, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
         carouselCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-    }
-    
-    //MARK: - Private Methods
-    private func setupNavigationBar() {
-        setupBarButtonItems()
-        
-    }
-    
-    private func setupBarButtonItems() {
-        //        setupBackButton()
-        setupShareButton()
-    }
-    
-    private func setupBackButton() {
-        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50.0, height: 50.0))
-        let backImage = UIImage(named: "backButton")
-        backButton.setImage(backImage, for: .normal)
-        backButton.imageEdgeInsets = UIEdgeInsets(top: 10.0, left: -70.0, bottom: 10.0, right: 0.0)
-        backButton.imageView?.contentMode = .scaleAspectFit
-        backButton.setTitle("", for: .normal)
-        backButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        let backBarButton = UIBarButtonItem(customView: backButton)
-        self.navigationItem.leftBarButtonItems = [backBarButton]
-    }
-    
-    private func setupShareButton() {
-        
-    }
-    
-    @objc
-    private func buttonPressed() {
-        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -246,6 +215,81 @@ private extension DetailViewController {
         navigationController?.setNavigationBarHidden(navigationBarHidden, animated: false)
     }
     
+    func setupBarButtonItems() {
+//        setupBackButton()
+        setupDetailButton()
+    }
+    
+    func setupBackButton() {
+        let backBarButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonPressed))
+        backBarButton.tintColor = .black
+        self.navigationItem.leftBarButtonItems = [backBarButton]
+    }
+    
+    func setupDetailButton() {
+        let detailButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(detailButtonPressed))
+        detailButton.tintColor = .black
+        self.navigationItem.rightBarButtonItems = [detailButton]
+    }
+    
+    @objc
+    func backButtonPressed() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    func detailButtonPressed() {
+        print("detailButtonPressed")
+        
+        let alertController = UIAlertController(title: "Share/Save Photo", message: "You can choose an action with the photo save or share it", preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { [weak alertController] _ in
+            alertController?.dismiss(animated: true, completion: nil)
+        }
+        
+        let save = UIAlertAction(title: "Save photo", style: .default) {[weak self] _ in
+            guard let self = self else { return }
+            
+            guard let cell = self.collectionView.cellForItem(at: IndexPath(item: self.overlookedIndex, section: 0)) as? PhotoViewCell,
+                  let image = cell.getImage() else
+            { return }
+            
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+            
+        }
+        
+        let share = UIAlertAction(title: "Share photo", style: .default) {[weak self] _ in
+            guard let self = self else { return }
+            
+            guard let cell = self.collectionView.cellForItem(at: IndexPath(item: self.overlookedIndex, section: 0)) as? PhotoViewCell,
+                  let image = cell.getImage() else
+            { return }
+            
+            let items = ["This is Mobile Up!", image] as [Any]
+            
+            let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            self.present(activityViewController, animated: true)
+        }
+        
+        alertController.addAction(cancel)
+        alertController.addAction(save)
+        alertController.addAction(share)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc
+    func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            let alertController = UIAlertController(title: "Saving error", message: error.localizedDescription, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default))
+            present(alertController, animated: true)
+        } else {
+            let alertController = UIAlertController(title: "Image saved!", message: "The image has been saved to your library", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default))
+            present(alertController, animated: true)
+        }
+    }
 }
 
 

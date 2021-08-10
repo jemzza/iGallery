@@ -15,15 +15,16 @@ class AuthView: UIView {
         button.setTitle("Вход через VK", for: .normal)
         button.backgroundColor = Constants.Colors.titles
         button.tintColor = Constants.Colors.buttonTitle
-        button.titleLabel?.font = UIFont(name: Constants.Font.light, size: Constants.Font.Size.small)
-        button.layer.cornerRadius = 10
+        button.titleLabel?.font = UIFont.systemFont(ofSize: Constants.Font.Size.small, weight: Constants.Font.Weight.f500)
+
+        button.layer.cornerRadius = 8
         return button
     }()
     
     //MARK: - Private Properties
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Constants.Font.medium, size: Constants.Font.Size.largeAuth)
+        label.font = UIFont.systemFont(ofSize: Constants.Font.Size.largeAuth, weight: Constants.Font.Weight.f700)
         label.text = "Mobile Up\nGallery"
         label.numberOfLines = 2
         label.textColor = Constants.Colors.titles
@@ -73,14 +74,14 @@ private extension AuthView {
     func setupConstraints() {
         
         NSLayoutConstraint.activate([
-            verticalStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100),
-            verticalStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
-            verticalStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
+            verticalStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 140),
+            verticalStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 24),
+            verticalStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -24),
             verticalStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
-            loginButton.heightAnchor.constraint(equalToConstant: 65),
+            loginButton.heightAnchor.constraint(equalToConstant: 56),
             loginButton.leftAnchor.constraint(equalTo: verticalStackView.leftAnchor, constant: 0),
             loginButton.rightAnchor.constraint(equalTo: verticalStackView.rightAnchor, constant: 0)
         ])

@@ -119,9 +119,14 @@ private extension GalleryViewController {
     }
     
     func setupBarButtonItem() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выход/Вход", style: .plain, target: self, action: #selector(loginOrOutTapped))
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-//        navigationItem.rightBarButtonItem?.tintColor = Constants.Colors.titles
+        
+        let exitButtonItem = UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(loginOrOutTapped))
+        exitButtonItem.tintColor = Constants.Colors.titles
+        navigationItem.rightBarButtonItem = exitButtonItem
+        
+        let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        backButtonItem.tintColor = Constants.Colors.titles
+        navigationItem.backBarButtonItem = backButtonItem
     }
     
     @objc

@@ -18,5 +18,4 @@ struct Photo: Codable {
     
     //MARK: - Private Properties
     let photo_1280: String
-//    let sizes: [PhotoSize]
 }
