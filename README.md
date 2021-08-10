@@ -9,3 +9,4 @@ This is an iOS application for viewing pictures from VK album. The App contains 
 ## Architecture
 
 The Application is realised by MVC architecture with code separation into presentation and model levels. Pesentation level uses models and interfaces
+

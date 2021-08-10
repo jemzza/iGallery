@@ -87,6 +87,8 @@
 		7D22D27D26B9B92800E0540B = {
 			isa = PBXGroup;
 			children = (
+				7D68D80726C26C6100E5A913 /* README.md */,
+				7D68D80926C2743E00E5A913 /* TestView.gif */,
 				7D22D28826B9B92800E0540B /* iGallery */,
 				7D22D28726B9B92800E0540B /* Products */,
 				A4FE8FE182A0FEFDF9DF5679 /* Pods */,
@@ -117,8 +119,6 @@
 				7D22D2C326BC7C8500E0540B /* Helpers */,
 				7D22D29226B9B92B00E0540B /* Assets.xcassets */,
 				7D22D29426B9B92B00E0540B /* LaunchScreen.storyboard */,
-				7D68D80726C26C6100E5A913 /* README.md */,
-				7D68D80926C2743E00E5A913 /* TestView.gif */,
 				7D22D29726B9B92B00E0540B /* Info.plist */,
 			);
 			path = iGallery;
