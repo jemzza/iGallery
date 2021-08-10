@@ -159,8 +159,8 @@ private extension DetailViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -90),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -34),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -Static.spacingCarousel / 2),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: Static.spacingCarousel / 2),
         ])

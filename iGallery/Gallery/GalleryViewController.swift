@@ -120,7 +120,7 @@ private extension GalleryViewController {
     
     func setupBarButtonItem() {
         
-        let exitButtonItem = UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(loginOrOutTapped))
+        let exitButtonItem = UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(loginOutTapped))
         exitButtonItem.tintColor = Constants.Colors.titles
         navigationItem.rightBarButtonItem = exitButtonItem
         
@@ -130,8 +130,13 @@ private extension GalleryViewController {
     }
     
     @objc
-    func loginOrOutTapped() {
+    func loginOutTapped() {
         print("loginOrOutTapped")
+        
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+                
+        sceneDelegate.authServiceLogoutlogOutFromVK()
+        
     }
     
     func getPhotos() {

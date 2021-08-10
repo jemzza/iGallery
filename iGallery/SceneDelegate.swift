@@ -12,10 +12,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
 
     //MARK: - Public properties
     var window: UIWindow?
+    var authVC: UIViewController!
     
     //MARK: - Private properties
     private let photoService = PhotoServiceRealization()
     private let authService = AuthServiceRealization()
+    private var navigationController: UINavigationController!
 
     //MARK: - Pulic Methods
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -23,12 +25,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
         
-        
-        let auth = AuthViewController(authService: authService)
-        
         authService.delegate = self
         
-        window?.rootViewController = auth
+        let viewController = GalleryViewController(photoService: photoService)
+        navigationController = UINavigationController(rootViewController: viewController)
+        let attrs = [
+            NSAttributedString.Key.foregroundColor: Constants.Colors.titles,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: Constants.Font.Size.small, weight: Constants.Font.Weight.f600)
+
+        ]
+        navigationController.navigationBar.titleTextAttributes = attrs
+        
+        authVC = AuthViewController(authService: authService)
+                
+        if UserDefaults.standard.bool(forKey: "isUserAuthorized") {
+            window?.rootViewController = navigationController
+        } else {
+            window?.rootViewController = authVC
+        }
+        
         window?.makeKeyAndVisible()
         
     }
@@ -39,6 +54,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
         }
     }
     
+    func authServiceLogoutlogOutFromVK() {
+        UserDefaults.standard.set(false, forKey: "isUserAuthorized")
+        window?.rootViewController = authVC
+    }
+    
     func authServiceShouldShow(for viewController: UIViewController) {
         print("authServiceShouldShow")
         viewController.modalPresentationStyle = .popover
@@ -47,18 +67,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
     
     func authServiceSignIn() {
         print("SignIN")
-        
-        let viewController = GalleryViewController(photoService: photoService)
-        let navigationController = UINavigationController(rootViewController: viewController)
-        
-        let attrs = [
-            NSAttributedString.Key.foregroundColor: Constants.Colors.titles,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: Constants.Font.Size.small, weight: Constants.Font.Weight.f600)
-
-        ]
-                navigationController.navigationBar.titleTextAttributes = attrs
-//                navigationController.navigationBar.barStyle = .blackTranslucent
-//                navigationController.navigationBar.barTintColor = .white
+        UserDefaults.standard.set(true, forKey: "isUserAuthorized")
         window?.rootViewController = navigationController
     }
     

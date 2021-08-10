@@ -74,10 +74,10 @@ private extension AuthView {
     func setupConstraints() {
         
         NSLayoutConstraint.activate([
-            verticalStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 140),
+            verticalStackView.topAnchor.constraint(equalTo: topAnchor, constant: 164),
             verticalStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 24),
             verticalStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -24),
-            verticalStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            verticalStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50)
         ])
         
         NSLayoutConstraint.activate([

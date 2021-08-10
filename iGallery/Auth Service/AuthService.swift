@@ -12,10 +12,12 @@ protocol AuthServiceDelegate: AnyObject {
     func authServiceShouldShow(for: UIViewController)
     func authServiceSignIn()
     func authServiceSignInDidFail(error: Error?)
+    func authServiceLogoutlogOutFromVK()
 }
 
 protocol AuthService {
     func wakeUpSession()
+    func isUserAuthorized() -> Bool
 }
 
 class AuthServiceRealization: NSObject, AuthService, VKSdkUIDelegate,VKSdkDelegate {
@@ -35,6 +37,7 @@ class AuthServiceRealization: NSObject, AuthService, VKSdkUIDelegate,VKSdkDelega
         vkSdk.uiDelegate = self
     }
     
+    //MARK: - Public Methods
     func wakeUpSession() {
         let scope = [""]
         VKSdk.wakeUpSession(scope) { [delegate] authState, error in
@@ -54,7 +57,19 @@ class AuthServiceRealization: NSObject, AuthService, VKSdkUIDelegate,VKSdkDelega
         }
     }
     
-    //MARK: - Public Methods
+    func isUserAuthorized() -> Bool {
+        return VKSdk.isLoggedIn()
+    }
+    
+    func vkSdkOutFromVK() {
+        
+        if isUserAuthorized() {
+            VKSdk.forceLogout()
+        }
+        
+        delegate?.authServiceLogoutlogOutFromVK()
+    }
+    
     func vkSdkShouldPresent(_ controller: UIViewController!) {
         print("vkSdkShouldPresent")
         delegate?.authServiceShouldShow(for: controller)

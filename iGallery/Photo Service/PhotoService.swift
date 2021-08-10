@@ -45,8 +45,6 @@ class PhotoServiceRealization: PhotoService {
     }
 }
 
-//https://api.vk.com/method/photos.get?owner_id=-128666765&album_id=266276915&access_token=a4998974a4998974a499897403a4e98509aa499a4998974fac4e4bfa614dc87001f99c5&count=20&v=5.76
-
 private extension PhotoServiceRealization {
     
     //MARK: - Private Nested
