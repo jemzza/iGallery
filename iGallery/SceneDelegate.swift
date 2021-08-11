@@ -12,12 +12,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
 
     //MARK: - Public properties
     var window: UIWindow?
-    var authVC: UIViewController!
     
     //MARK: - Private properties
     private let photoService = PhotoServiceRealization()
     private let authService = AuthServiceRealization()
     private var navigationController: UINavigationController!
+    private var authVC: UIViewController!
 
     //MARK: - Pulic Methods
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
         
         authService.delegate = self
         
-        let viewController = GalleryViewController(photoService: photoService)
+        let viewController = GalleryViewController(photoService: photoService, authService: authService)
         navigationController = UINavigationController(rootViewController: viewController)
         let attrs = [
             NSAttributedString.Key.foregroundColor: Constants.Colors.titles,
@@ -54,7 +54,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
         }
     }
     
-    func authServiceLogoutlogOutFromVK() {
+    func authServiceLogoutOutFromVK() {
         UserDefaults.standard.set(false, forKey: "isUserAuthorized")
         window?.rootViewController = authVC
     }
@@ -66,7 +66,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
     }
     
     func authServiceSignIn() {
-        print("SignIN")
+        print("authServiceSignIn")
         UserDefaults.standard.set(true, forKey: "isUserAuthorized")
         window?.rootViewController = navigationController
     }

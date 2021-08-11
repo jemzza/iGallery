@@ -11,12 +11,14 @@ class GalleryViewController: UIViewController {
     
     //MARK: - Private Properties
     private let photoService: PhotoService
+    private let authService: AuthService
     private let collectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: GalleryViewLayout())
     
     //MARK: - init
-    init(photoService: PhotoService) {
+    init(photoService: PhotoService, authService: AuthService) {
         self.photoService = photoService
+        self.authService = authService
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -120,7 +122,7 @@ private extension GalleryViewController {
     
     func setupBarButtonItem() {
         
-        let exitButtonItem = UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(loginOutTapped))
+        let exitButtonItem = UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(logOutTapped))
         exitButtonItem.tintColor = Constants.Colors.titles
         navigationItem.rightBarButtonItem = exitButtonItem
         
@@ -130,13 +132,8 @@ private extension GalleryViewController {
     }
     
     @objc
-    func loginOutTapped() {
-        print("loginOrOutTapped")
-        
-        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
-                
-        sceneDelegate.authServiceLogoutlogOutFromVK()
-        
+    func logOutTapped() {
+        authService.vkSdkOutFromVK()
     }
     
     func getPhotos() {

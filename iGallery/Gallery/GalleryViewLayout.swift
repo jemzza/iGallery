@@ -21,7 +21,7 @@ class GalleryViewLayout: UICollectionViewLayout {
     //MARK: - Public Methods
     override func prepare() {
         super.prepare()
-        print("Update")
+        
         guard let collectionView = collectionView, collectionView.numberOfSections == 1 else {
             return assert(false, "GalleryViewLayout needs one section in collectionView")
         }

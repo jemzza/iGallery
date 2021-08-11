@@ -7,10 +7,6 @@
 
 import UIKit
 
-//protocol CarouselViewCellDelegate: AnyObject {
-//    func CarouselViewCellDidTap(_ cell: CarouselViewCell)
-//}
-
 class CarouselViewCell: UICollectionViewCell, ViewCellProtocol {
     
     //MARK: - Public Properties

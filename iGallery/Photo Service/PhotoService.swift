@@ -66,7 +66,6 @@ private extension PhotoServiceRealization {
         ]
         
         guard let url = urlComponents.url else { return }
-        print(url)
         
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in

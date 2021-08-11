@@ -7,10 +7,6 @@
 
 import UIKit
 
-//protocol PhotoViewCellDelegate: AnyObject {
-//     func photoViewCellDidTap(_ cell: PhotoViewCell)
-// }
-
 protocol PhotoCellDelegate: AnyObject {
     func photoCellDidTap(_ cell: ViewCellProtocol)
 }
